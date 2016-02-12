@@ -15,6 +15,7 @@ Quick start
 
 2. Define settings:
     LISTS_NUMBER_OF_ENTRIES_PER_PAGE
+
     API_BASE_URL
 
 3. ...

@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
 
-
-"""
-be_core.exceptions
-"""
 import logging
 
 logger = logging.getLogger('django_rest_client')
