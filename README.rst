@@ -14,30 +14,30 @@ Quick start
   }
 
 2. Define settings:
-    LISTS_NUMBER_OF_ENTRIES_PER_PAGE
+  LISTS_NUMBER_OF_ENTRIES_PER_PAGE = X
 
-    API_BASE_URL
+  API_BASE_URL = 'http:\\api-url.net'
 
 3. Example of RestClient:
 
-class AuthApiClient(RestClientBase):
-    namespace = '<base-endpoint>'
-
-    def login(self, email, password):
-        data = {
-            'authId': email,
-            'password': password
-        }
-
-        response = self.post(endpoint='/auth', data=data)
-
-        if response.status_code == 200:
-            return True
-        elif response.status_code == requests.codes.unauthorized:
-            return
-
-        self.handle(response)
-
+  class AuthApiClient(RestClientBase):
+      namespace = '<base-endpoint>'
+  
+      def login(self, email, password):
+          data = {
+              'authId': email,
+              'password': password
+          }
+  
+          response = self.post(endpoint='/auth', data=data)
+  
+          if response.status_code == 200:
+              return True
+          elif response.status_code == requests.codes.unauthorized:
+              return
+  
+          self.handle(response)
+          
 
 4. Example of Model
 
