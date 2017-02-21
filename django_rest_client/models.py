@@ -81,7 +81,9 @@ class MappedFieldDataObject(BaseDataObject):
     def deserialize_filters(cls, filters):
         if hasattr(cls.Meta, 'filters_mapping'):
             fields = dict([
-                (k, filters.get(v))
+                (k, v(filters))
+                if callable(v) else
+                (k, filters.get(v, None))
                 for k, v in cls.Meta.filters_mapping.iteritems()])
         else:
             return {}
