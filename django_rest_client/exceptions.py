@@ -64,4 +64,3 @@ class UnknownObjectTypeError(BaseException):
     The exception that is thrown whenever we are asked to create an object of an unknown type.
     """
     pass
-

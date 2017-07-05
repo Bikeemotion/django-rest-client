@@ -9,8 +9,9 @@ from requests.exceptions import ConnectionError
 from requests.sessions import Session
 from uritemplate.template import URITemplate
 
-from .exceptions import (MalformedResponseError, ServiceUnavailableError,
-    UnexpectedResponseError, UnauthorizedRequestError)
+from .exceptions import (
+    MalformedResponseError, ServiceUnavailableError, UnexpectedResponseError, UnauthorizedRequestError
+)
 from .models import ListPage
 
 logger = logging.getLogger('django_rest_client')
@@ -33,8 +34,7 @@ class RestClientBase(object):
         """
         return self.dispatch('delete', *args, **kwargs)
 
-    def deserialize(
-        self, response, key=None, model=None, page=None, first=0, last=None):
+    def deserialize(self, response, key=None, model=None, page=None, first=0, last=None):
         """
         Returns a "data object" representing the specified response's JSON content.
         """
@@ -45,8 +45,7 @@ class RestClientBase(object):
             return self.deserialize_response_data(
                 self.json(response)[key], model, page, first, last)
 
-    def deserialize_response_data(
-        self, data, model=None, page=None, first=None, last=None):
+    def deserialize_response_data(self, data, model=None, page=None, first=None, last=None):
         """
         Returns a "data object" representing the specified JSON data.
         """
@@ -107,7 +106,7 @@ class RestClientBase(object):
         # Call the appropriate method on the appropriate URL.
         #
         try:
-            response = getattr(self._session, method)(self.url(endpoint), **kwargs)
+            response = getattr(self._session, method)(self.url(endpoint), verify=False, **kwargs)
             if settings.DEBUG:
                 logger.info('{0} request - {1} - {2}'.format(method, self.url(endpoint), kwargs.pop('data', '[]')))
                 logger.info('response - {0} - {1}'.format(response.status_code, response.content))
@@ -145,13 +144,17 @@ class RestClientBase(object):
         """
         Attempts to dispatch a 'POST' request.
         """
-        return self.dispatch('post', data=json.dumps(kwargs.pop('data')), headers={'Content-Type': 'application/json'}, *args, **kwargs)
+        return self.dispatch(
+            'post', data=json.dumps(kwargs.pop('data')), headers={'Content-Type': 'application/json'}, *args, **kwargs
+        )
 
     def put(self, *args, **kwargs):
         """
         Attempts to dispatch a 'PUT' request.
         """
-        return self.dispatch('put', data=json.dumps(kwargs.pop('data')), headers={'Content-Type': 'application/json'}, *args, **kwargs)
+        return self.dispatch(
+            'put', data=json.dumps(kwargs.pop('data')), headers={'Content-Type': 'application/json'}, *args, **kwargs
+        )
 
 
 class FetchableEntityApiMixin(object):

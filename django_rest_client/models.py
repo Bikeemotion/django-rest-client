@@ -11,7 +11,7 @@ class BaseDataObject(object):
 
     def serialize(self):
         objects = self.objects()
-        return {k: v for (k,v) in objects.iteritems() if not k.startswith('_')}
+        return {k: v for (k, v) in objects.iteritems() if not k.startswith('_')}
 
 
 class MappedFieldDataObject(BaseDataObject):
@@ -147,7 +147,7 @@ class ListPage(list):
         self._total = total
         super(ListPage, self).__init__(*args)
         self._page = page or 1
-        self._first = first+1 if first < total else total
+        self._first = first + 1 if first < total else total
         self._last = last or (first + len(self))
 
     @property
@@ -165,4 +165,3 @@ class ListPage(list):
     @property
     def total(self):
         return self._total
-
